@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "main_app",
     "crispy_forms",
     "crispy_bootstrap5",
+    "django.contrib.humanize",
   ]
 
 MIDDLEWARE = [
@@ -122,6 +123,11 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'main_app/assets')
+]
 
 MEDIA_URL = "media/"
 

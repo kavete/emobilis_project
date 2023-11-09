@@ -17,11 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from main_app import views
+from django.conf.urls.static import static
+from main_project import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', views.home, name="home"),
-]
+    path('employees/', views.all_employees, name="employees"),
+    path('employees/<int:emp_id>', views.employee_details, name="details"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 # tables
