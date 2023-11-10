@@ -16,7 +16,7 @@
             <div class="col-sm-5">
                 <div class="card">
                     {% if employee.profile %}
-                    <img src="{{ employee.profile.url }}" alt="profile-picture" class="card-img-top">
+                    <img src="{{ employee.profile.url }}" alt="profile-picture" class="card-img-top rounded img-fluid" width="100px" height="auto">
                     {% endif %}
                     
                     <div class="card-body">
@@ -26,6 +26,9 @@
                         <p class="card-text">Kshs. {{ employee.salary | intcomma }}</p>
                         <p class="card-text">Added: {{ employee.created_at | naturaltime }}</p>
                         <p class="card-text">Updated: {{ employee.updated_at | naturaltime }}</p>
+
+                        <a href="{% url 'delete' employee.id %}" class="btn btn-danger">Delete</a>
+
                     </div>
                 </div>
             </div>
