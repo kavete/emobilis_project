@@ -1,0 +1,17 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+    Page not found
+{% endblock %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-center vh-100 align-items-center">
+    <div class="content text-center ">
+        <h1 class="display-1 text-black-50">404</h1>
+        <p>Ooops! The page ({{ request.path }}) you are looking for could not be found on the server.</p>
+        <p> <a href="#">Report a problem?</a></p>
+        <p><a href="{% url 'home' %}" class="btn btn-primary">Home</a></p>
+    </div>
+</div>
+{% endblock content %}

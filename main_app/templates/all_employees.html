@@ -1,44 +1,85 @@
+{% extends 'base_template.html' %}
 {% load humanize %}
-{% load static %}
+{% load static %} 
+{% block title %} All Employees {% endblock title %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'app/css/bootstrap.css' %}">
-</head>
-<body>
-    <div class="container">
+{% block content %}
 
-        <div class="row justify-content-center">
-            <div class="col-sm-8">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Date of birth</th>
-                            <th>Salary</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for employee in employees %}
-                        <tr>
-                            <td>
-                                <a href="/employees/{{ employee.id }}">{{ employee.name | title }}</a>
-                            </td>
-                            <td>{{ employee.email }} </td>
-                            <td>{{ employee.dob | date:'d-m-Y' }}</td>
-                            <td>{{ employee.salary | intcomma }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+{% include 'navbar.html' %}
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-8">
+
+      {% include 'alerts.html' %}
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Date of birth</th>
+            <th>Salary</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for employee in employees %}
+          <tr>
+            <td>
+              <a href="/employees/{{ employee.id }}"
+                >{{ employee.name | title }}</a
+              >
+            </td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.dob | date:'d-m-Y' }}</td>
+            <td>{{ employee.salary | intcomma }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      {% if employees.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href='?page={{ employees.previous_page_number }}'>&laquo; Previous</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" href='#' tabindex="-1" aria-disabled="True">Previous</a>
+        </li>
+      {% endif %}
+      {% comment %} {% for i in employees.paginator.page_range %} 
+        {% if employees.number == i %}
+          <li class="page-item active" aria-current="page">
+            <span class="page-link">
+              {{ i }}
+{#                <span class="sr-only">(current)</span>#}
+            </span>
+          </li>
+        {% else %}
+          <li class="page-item"><a class="page-link" href=''>{{ i }}</a></li>
+        {% endif %}
+      {% endfor %} {% endcomment %}
+
+      <li class="page-item">
+        <a href="#" class="page-link">{{ employees.number }}</a>
+      </li>
+         
+      
+      {% if employees.has_next %}
+        <li class="page-item">
+          <a class="page-link" href='?page={{ employees.next_page_number}}'>Next &raquo;</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" href='' tabindex="-1" aria-disabled="True">Next</a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
     </div>
-    
-</body>
-</html>
+  </div>
+</div>
+{% endblock %}

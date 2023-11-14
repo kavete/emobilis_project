@@ -1,39 +1,54 @@
+{% extends 'base_template.html' %}
 {% load static %}
-{% load humanize %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'app/css/bootstrap.css' %}">
-</head>
-<body>
-    <div class="container">
 
-        <div class="row justify-content-center">
+{% load humanize %} 
 
-            <div class="col-sm-5">
-                <div class="card">
-                    {% if employee.profile %}
-                    <img src="{{ employee.profile.url }}" alt="profile-picture" class="card-img-top rounded img-fluid" width="100px" height="auto">
-                    {% endif %}
-                    
-                    <div class="card-body">
-                        <h2 class="card-title">{{ employee.name }}</h2>
-                        <p class="card-text">Born: {{ employee.dob | date:'d-m-Y' }}</p>
-                        <p class="card-text">Address: {{ employee.email }}</p>
-                        <p class="card-text">Kshs. {{ employee.salary | intcomma }}</p>
-                        <p class="card-text">Added: {{ employee.created_at | naturaltime }}</p>
-                        <p class="card-text">Updated: {{ employee.updated_at | naturaltime }}</p>
+{% block title %}
+    {{ employee.name }}
+{% endblock %}
+{% block content %}
 
-                        <a href="{% url 'delete' employee.id %}" class="btn btn-danger">Delete</a>
+{% include 'navbar.html' %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-5">
 
-                    </div>
-                </div>
-            </div>
+      {% include 'alerts.html' %}
+      <div class="card">
+        <div class="text-center">
+            {% if employee.profile %}
+        <img
+          src="{{ employee.profile.url }}"
+          alt="profile-picture"
+          class="card-img-top rounded-circle img-fluid"
+          width="200"
+          height="200"
+        />
+        {% endif %}
         </div>
+      
+
+        <div class="card-body">
+          <h2 class="card-title">{{ employee.name }}</h2>
+          <p class="card-text">Born: {{ employee.dob | date:'d-m-Y' }}</p>
+          <p class="card-text">Address: {{ employee.email }}</p>
+          <p class="card-text">Kshs. {{ employee.salary | intcomma }}</p>
+          <p class="card-text">
+            Added: {{ employee.created_at | naturaltime }}
+          </p>
+          <p class="card-text">
+            Updated: {{ employee.updated_at | naturaltime }}
+          </p>
+
+          <a href="{% url 'delete' employee.id %}" class="btn btn-danger w-50"
+            >Delete</a
+          >
+          <a href="{% url 'update' employee.id %}" class="btn btn-info w-50 mt-2"
+          >Update</a
+        >
+        </div>
+      </div>
     </div>
-    
-</body>
-</html>
+  </div>
+</div>
+{% endblock %}

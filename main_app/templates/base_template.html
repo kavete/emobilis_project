@@ -8,9 +8,20 @@
         {% block title %}    {% endblock%}
     </title>
     <link rel="stylesheet" href="{% static "app/css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static 'app/css/bootstrap.css.map' %}">
+
+    {% block styles %}
+    
+    {% endblock %}
 </head>
 <body>
     
-    {% block content %}{% endblock %}
+    {% block content %}
+
+    {% endblock %}
+
+    <script src="{% static 'app/js/bootstrap.bundle.js' %}">
+
+    </script>
 </body>
 </html>
